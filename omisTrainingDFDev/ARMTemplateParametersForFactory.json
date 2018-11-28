@@ -11,6 +11,9 @@
 		"RawCurrency_properties_typeProperties_folderPath": {
 			"value": "Raw"
 		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://omiskeyvaultdev.vault.azure.net/"
+		},
 		"NorgesBank_properties_typeProperties_url": {
 			"value": "https://data.norges-bank.no/api/data/EXR/B..NOK.SP?lastNObservations=1&format=sdmx-json"
 		},
@@ -25,6 +28,9 @@
 		},
 		"RawCurrencyDataLakeDev_properties_typeProperties_resourceGroupName": {
 			"value": "omisTrainingRG"
+		},
+		"omisAzureTraining_properties_typeProperties_connectionString_secretName": {
+			"value": "sqlconnstring"
 		}
 	}
 }
