@@ -1,0 +1,30 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "omistrainingdfdev"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/RawCurrencyDataLakeDev')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "https://omistrainingdl.azuredatalakestore.net/webhdfs/v1",
+					"tenant": "3aa4a235-b6e2-48d5-9195-7fcf05b459b0",
+					"subscriptionId": "37abba88-5b79-4d4f-a731-d0c9edb6f70b",
+					"resourceGroupName": "omisTrainingRG"
+				}
+			}
+		}
+	]
+}
