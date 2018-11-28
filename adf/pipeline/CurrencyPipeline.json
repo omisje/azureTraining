@@ -1,6 +1,7 @@
 {
 	"name": "CurrencyPipeline",
 	"properties": {
+		"description": "Description",
 		"activities": [
 			{
 				"name": "CurrencyNorgesBank",
