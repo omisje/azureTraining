@@ -7,15 +7,91 @@
 			"metadata": "Data Factory Name",
 			"defaultValue": "omistrainingdfdev"
 		},
+		"RawCurrency_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": ""
+		},
+		"RawCurrency_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "Raw"
+		},
 		"NorgesBank_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://data.norges-bank.no/api/data/EXR/B..NOK.SP?lastNObservations=1&format=sdmx-json"
+		},
+		"RawCurrencyDataLakeDev_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://omistrainingdl.azuredatalakestore.net/webhdfs/v1"
+		},
+		"RawCurrencyDataLakeDev_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "3aa4a235-b6e2-48d5-9195-7fcf05b459b0"
+		},
+		"RawCurrencyDataLakeDev_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "37abba88-5b79-4d4f-a731-d0c9edb6f70b"
+		},
+		"RawCurrencyDataLakeDev_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "omisTrainingRG"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "CurrencyNorgesBank",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "HttpSource",
+								"httpRequestTimeout": "00:01:40"
+							},
+							"sink": {
+								"type": "AzureDataLakeStoreSink"
+							},
+							"enableStaging": false,
+							"dataIntegrationUnits": 0
+						},
+						"inputs": [
+							{
+								"referenceName": "HttpFile1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "RawCurrency",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/HttpFile1')]",
+				"[concat(variables('factoryId'), '/datasets/RawCurrency')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/HttpFile1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -45,6 +121,35 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/RawCurrency')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "RawCurrencyDataLakeDev",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureDataLakeStoreFile",
+				"typeProperties": {
+					"format": {
+						"type": "TextFormat",
+						"columnDelimiter": ",",
+						"rowDelimiter": "",
+						"nullValue": "\\N",
+						"treatEmptyAsNull": true,
+						"skipLineCount": 0,
+						"firstRowAsHeader": false
+					},
+					"fileName": "[parameters('RawCurrency_properties_typeProperties_fileName')]",
+					"folderPath": "[parameters('RawCurrency_properties_typeProperties_folderPath')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/RawCurrencyDataLakeDev')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/NorgesBank')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -55,6 +160,22 @@
 					"url": "[parameters('NorgesBank_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RawCurrencyDataLakeDev')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('RawCurrencyDataLakeDev_properties_typeProperties_dataLakeStoreUri')]",
+					"tenant": "[parameters('RawCurrencyDataLakeDev_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('RawCurrencyDataLakeDev_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('RawCurrencyDataLakeDev_properties_typeProperties_resourceGroupName')]"
 				}
 			},
 			"dependsOn": []

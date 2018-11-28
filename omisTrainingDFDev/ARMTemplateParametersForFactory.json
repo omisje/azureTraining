@@ -5,8 +5,26 @@
 		"factoryName": {
 			"value": "omistrainingdfdev"
 		},
+		"RawCurrency_properties_typeProperties_fileName": {
+			"value": ""
+		},
+		"RawCurrency_properties_typeProperties_folderPath": {
+			"value": "Raw"
+		},
 		"NorgesBank_properties_typeProperties_url": {
 			"value": "https://data.norges-bank.no/api/data/EXR/B..NOK.SP?lastNObservations=1&format=sdmx-json"
+		},
+		"RawCurrencyDataLakeDev_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://omistrainingdl.azuredatalakestore.net/webhdfs/v1"
+		},
+		"RawCurrencyDataLakeDev_properties_typeProperties_tenant": {
+			"value": "3aa4a235-b6e2-48d5-9195-7fcf05b459b0"
+		},
+		"RawCurrencyDataLakeDev_properties_typeProperties_subscriptionId": {
+			"value": "37abba88-5b79-4d4f-a731-d0c9edb6f70b"
+		},
+		"RawCurrencyDataLakeDev_properties_typeProperties_resourceGroupName": {
+			"value": "omisTrainingRG"
 		}
 	}
 }
