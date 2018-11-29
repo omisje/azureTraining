@@ -1,0 +1,13 @@
+{
+	"name": "HttpODOilField",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "OD Oil Fields",
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "http://factpages.npd.no/ReportServer?/FactPages/TableView/field_owner_hst&rs:Command=Render&rc:Toolbar=false&rc:Parameters=f&rs:Format=CSV&Top100=false&IpAddress=143.97.2.35&CultureCode=nb-no",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
