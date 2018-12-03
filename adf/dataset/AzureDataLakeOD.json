@@ -17,8 +17,8 @@
 				"skipLineCount": 0,
 				"firstRowAsHeader": false
 			},
-			"fileName": "OD",
-			"folderPath": "Raw"
+			"fileName": "Field.csv",
+			"folderPath": "Raw/OD"
 		}
 	}
 }
