@@ -1,0 +1,24 @@
+{
+	"name": "AzureDataLakeOD",
+	"properties": {
+		"description": "Oljedirektoratet",
+		"linkedServiceName": {
+			"referenceName": "RawCurrencyDataLakeDev",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureDataLakeStoreFile",
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": ",",
+				"rowDelimiter": "",
+				"nullValue": "\\N",
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"fileName": "OD",
+			"folderPath": "Raw"
+		}
+	}
+}
